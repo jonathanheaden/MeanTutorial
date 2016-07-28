@@ -2,7 +2,5 @@
 .DS_Store
 # Dependency directory
 node_modules
-public/bootstrap
-public/javascripts/jquery*
 # Environment variables
 .env
