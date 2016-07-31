@@ -15,11 +15,10 @@ block content
           h4
             a(href="/location") #{location.name}
             small &nbsp;
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star
-              span.glyphicon.glyphicon-star-empty
-              span.glyphicon.glyphicon-star-empty
+              - for (var i = 1; i <= location.rating; i++)
+                span.glyphicon.glyphicon-star 
+              - for (i = location.rating; i < 5; i++)
+                span.glyphicon.glyphicon-star-empty
             span.badge.pull-right.badge-default #{location.distance}
           p.address= location.address
           p
