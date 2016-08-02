@@ -32,7 +32,7 @@ module.exports.homelist = function (req, res) {
 /* GET 'Location Info' page */
 module.exports.locationInfo = function (req, res) {
     res.render('location-info', {
-        title: 'Starcups',
+        title: 'Starcups!',
         pageHeader: {
             title: 'Starcups'
         },
@@ -41,9 +41,9 @@ module.exports.locationInfo = function (req, res) {
             callToAction: 'If you\'ve been and you like it - or if you don\'t - please leave a review to help other people just like you.' 
         },
         location : {
-            name: 'Starcups',
+            name: 'Starcups!',
             address: '125 High Street, Reading, RG6 1PS',
-            rating: 3,
+            rating: 2,
             facilities: ['Hot Drinks', 'Food', 'Premium Wifi'],
             coords: {
                 lat: 51.455041,
