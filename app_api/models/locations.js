@@ -23,3 +23,5 @@ var reviewSchema = new mongoose.Schema({
         createdOn: {type: Date, "default":Date.now()},
         reviewtext: String
     });
+
+mongoose.model('Location', locationSchema);
