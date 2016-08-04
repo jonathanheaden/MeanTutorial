@@ -74,18 +74,28 @@ module.exports.locationsListByDistance = function (req, res) {
     maxDistance : theEarth.getRadsFromDistance(20), 
     num: 10
     };
+    if (!lng || !lat) {
+        sendJsonResponse(res, 404,{
+            "message" : "lng and lat query parametes are required"
+        });
+        return;
+    }
     Loc.geoNear(point, geoOptions, function(err,results,stats){
         var locations = [];
-        results.forEach(function(doc){
-            locations.push({
-                distance: theEarth.getDistanceFromRads(doc.dis),
-                name: doc.obj.name,
-                address: doc.obj.address,
-                rating: doc.obj.rating,
-                facilities: doc.obj.facilities,
-                _id: doc.obj._id
+        if (err) {
+            sendJsonResponse(res, 404, err);
+        } else {
+            results.forEach(function(doc){
+                locations.push({
+                    distance: theEarth.getDistanceFromRads(doc.dis),
+                    name: doc.obj.name,
+                    address: doc.obj.address,
+                    rating: doc.obj.rating,
+                    facilities: doc.obj.facilities,
+                    _id: doc.obj._id
+                });
             });
-        });
-        sendJsonResponse(res, 200, locations);       
+            sendJsonResponse(res, 200, locations);
+        }       
     });
 };
