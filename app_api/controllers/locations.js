@@ -28,7 +28,34 @@ module.exports.locationsByDistance = function (req, res) {
  };
 
 module.exports.locationsCreate = function (req, res) { 
-    sendJsonResponse(res, 200, {"status" : "success"});
+    Loc.create({
+        name: req.body.name,
+        address: req.body.address,
+        facilities: req.body.facilities.split(";"),
+        coords : [parseFloat(req.body.lng), parseFloat(req.body.lat)],
+        openingTimes : [{
+            days: req.body.days1,
+            opening : req.body.opening1,
+            closing : req.body.closing1,
+            closed : req.body.closed1
+        }, {
+            days: req.body.days2,
+            opening : req.body.opening2,
+            closing : req.body.closing2,
+            closed : req.body.closed2
+        }, {
+            days: req.body.days3,
+            opening : req.body.opening3,
+            closing : req.body.closing3,
+            closed : req.body.closed3
+        }]
+    }, function(err, location){
+        if (err) {
+            sendJsonResponse(res, 400, err);
+        } else {
+            sendJsonResponse(res, 201, location);
+        }
+    });
 };
 
 module.exports.locationsReadOne = function (req, res) {
