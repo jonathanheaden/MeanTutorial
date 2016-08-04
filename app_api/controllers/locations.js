@@ -74,5 +74,18 @@ module.exports.locationsListByDistance = function (req, res) {
     maxDistance : theEarth.getRadsFromDistance(20), 
     num: 10
     };
-    Loc.geoNear(point, geoOptions, callback);
+    Loc.geoNear(point, geoOptions, function(err,results,stats){
+        var locations = [];
+        results.forEach(function(doc){
+            locations.push({
+                distance: theEarth.getDistanceFromRads(doc.dis),
+                name: doc.obj.name,
+                address: doc.obj.address,
+                rating: doc.obj.rating,
+                facilities: doc.obj.facilities,
+                _id: doc.obj._id
+            });
+        });
+        sendJsonResponse(res, 200, locations);       
+    });
 };
