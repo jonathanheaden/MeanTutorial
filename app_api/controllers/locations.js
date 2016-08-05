@@ -33,7 +33,7 @@ module.exports.locationsCreate = function (req, res) {
         address: req.body.address,
         facilities: req.body.facilities.split(";"),
         coords : [parseFloat(req.body.lng), parseFloat(req.body.lat)],
-        openingTimes : [{
+        openingtimes : [{
             days: req.body.days1,
             opening : req.body.opening1,
             closing : req.body.closing1,
