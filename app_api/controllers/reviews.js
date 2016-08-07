@@ -84,7 +84,53 @@ TypeError: location.reviews.id is not a function
 };
 
 module.exports.reviewsUpdateOne = function (req, res) { 
-    sendJsonResponse(res, 200, {"status" : "success"});
+    if (!req.params.locationid || !req.params.reviewid) {
+        sendJsonResponse(rew, 404, {
+            "message" : "Not found, locationif and reviewid are both required"
+        });
+        return;
+    }
+    Loc
+        .findById(req.params.locationid)
+        .select('reviews')
+        .exec(
+            function(err, location) {
+                var thisReview;
+                if (!location) {
+                    sendJsonResponse(res,404,{
+                        "message": "locationid not found"
+                    });
+                    return
+                } else if (err) {
+                    sendJsonResponse(res,400,err);
+                    return;
+                }
+                if (location.review && location.reviews.length > 0) {
+                    thisReview = location.reviews.id(req.params.reviewid);
+                    if (!thisReview) {
+                        sendJsonResponse(res,404, {
+                            "message" : "Reviewid not found"
+                        });
+                    } else {
+                        thisReview.author = req.body.author;
+                        thisReview.rating = req.body.rating;
+                        thisReview.reviewtext = req.body.reviewtext;
+                        location.save(function(err, location){
+                            if (err) {
+                                sendJsonResponse(ress,404, err);
+                            } else {
+                                updateAverageRating(location._id);
+                                sendJsonResponse(res,200, thisReview);
+                            }
+                        });
+                    }
+                } else {
+                    sendJsonResponse(res, 404, {
+                        "message" : "no review to update"
+                    });
+                }
+            }
+        )  
 };
 
 module.exports.reviewsDeleteOne = function (req, res) { 
