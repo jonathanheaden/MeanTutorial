@@ -7,10 +7,9 @@ var sendJsonResponse = function (res,status, content) {
 };
 
 module.exports.reviewsCreate = function (req, res) { 
-    var locationid = req.params.locationid;
-    if (locationid) {
+    if (req.params.locationid) {
         Loc
-            .findById(locationid)
+            .findById(req.params.locationid)
             .select('reviews')
             .exec(
                 function(err, location) {
@@ -45,7 +44,9 @@ module.exports.reviewsReadOne = function (req, res) {
                     return;
                 }
                 if (location.reviews && location.reviews.length > 0) {
-                    review = location.reviews//.id(req.params.reviewid);
+                    console.log("Review Id : " + req.params.reviewid); 
+                    review = location.reviews.id(req.params.reviewid);
+                    //review = location.reviews.id('57a831815bf76f041ffbc782');
                     /* 
                     Getting error in Node
                     POST /api/locations/57a10828ae5fb5b9ec358c86/reviews 200 7.933 ms - 20
@@ -114,7 +115,7 @@ module.exports.reviewsUpdateOne = function (req, res) {
                     } else {
                         thisReview.author = req.body.author;
                         thisReview.rating = req.body.rating;
-                        thisReview.reviewtext = req.body.reviewtext;
+                        thisReview.reviewText = req.body.reviewText;
                         location.save(function(err, location){
                             if (err) {
                                 sendJsonResponse(ress,404, err);
@@ -189,7 +190,7 @@ var doAddReview = function(req, res, location){
         location.reviews.push({
             author: req.body.author,
             rating: req.body.rating,
-            reviewtext:req.body.reviewText
+            reviewText:req.body.reviewText
         });
         location.save(function(err, location){
             var thisReview;
@@ -222,7 +223,7 @@ var doSetAverageRating = function(location) {
         reviewCount = location.reviews.length;
         ratingTotal = 0;
         for (i=0; i < reviewCount; i++) {
-            ratingTotal= ratingTotal + locations.reviews[i].rating;
+            ratingTotal= ratingTotal + location.reviews[i].rating;
         }
         ratingAverage = parseInt(ratingTotal / reviewCount, 10);
         location.rating = ratingAverage;
@@ -235,3 +236,4 @@ var doSetAverageRating = function(location) {
         });
     }
 };
+

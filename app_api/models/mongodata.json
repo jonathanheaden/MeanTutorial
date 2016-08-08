@@ -1,10 +1,10 @@
 db.locations.save({
-    name:'Starcups',
+    name:'Startup Cups',
     address: '125 High Street, Reading, RG6 1PS',
     rating : 3,
     facilities: ['Hot Drinks', 'Food', 'Premium Wifi'],
     coords: [-0.9690884, 51.455041],
-    openingTimes: [{
+    openingtimes: [{
         days: 'Monday - Friday',
         opening: '7:00 am',
         closing: '7:00 pm',
@@ -27,7 +27,7 @@ db.locations.save({
     rating : 2,
     facilities: ['Hot Drinks', 'Toast', 'Wifi'],
     coords: [-0.9690884, 51.455041],
-    openingTimes: [{
+    openingtimes: [{
         days: 'Monday - Friday',
         opening: '7:00 am',
         closing: '9:00 pm',
@@ -49,7 +49,7 @@ db.locations.save({
     rating : 2,
     facilities: ['Hot Drinks', 'Toast', 'Wifi', 'Friendly Banter'],
     coords: [-0.8690884, 52.455041],
-    openingTimes: [{
+    openingtimes: [{
         days: 'Monday - Friday',
         opening: '7:00 am',
         closing: '10:00 pm',
@@ -68,12 +68,12 @@ db.locations.save({
 })
 
 db.locations.update({
-    name: 'Starcups'
+    name: 'Startup Cups'
 }, {
     $push: {
         reviews: {
+            _id: ObjectId(),
             author: 'Simon Holmes',
-            id: ObjectId(),
             rating: 5,
             timestamp: new Date("July 14, 2016"),
             reviewText: "What a great place, I can't say enough good things about it."
@@ -82,12 +82,12 @@ db.locations.update({
 })
 
 db.locations.update({
-    name: 'Starcups'
+    name: 'Startup Cups'
 }, {
     $push: {
         reviews: {
-            author: 'Charlie Chaplin',
-            id: ObjectId(),
+            _id: ObjectId(),
+            author: 'Vincent Chaplin',
             rating: 2,
             timestamp: new Date("November 4, 2006"),
             reviewText: "Not a great place, I can't say any good things about it."
