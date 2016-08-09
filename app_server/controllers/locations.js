@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 /* GET 'home' page */
 module.exports.homelist = function (req, res) {
     var requestOptions, path;
-    path = 'api/locations';
+    path = '/api/locations';
     requestOptions = {
         url : apiOptions.server + path,
         method : "GET",
@@ -18,19 +18,19 @@ module.exports.homelist = function (req, res) {
         qs : {
             lng : 3.9690884,
             lat : -1.9690884,
-            MaxDistance : 20
+            maxdistance : 20
         }
     };
     request(
         requestOptions,
         function(err,response,body){
-            renderHomepage(req, res);
+            renderHomepage(req, res, body);
         }
     )
     
 };
 
-var renderHomepage = function (req, res) {
+var renderHomepage = function (req, res, responseBody) {
     res.render('locations-list', {
             title: 'Loc8tr - find a place with wifi',
             pageHeader: {
@@ -38,25 +38,7 @@ var renderHomepage = function (req, res) {
             strapline: 'Find places to work with wifi near you!'
         },
         sidebar: "Looking for a suitable place to work with wifi? Perhaps with coffee and a cake? Loc8tr helps you work smarter when out and about",
-        locations: [{
-            name: 'Starcups',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 3,
-            facilities: ['Hot Drinks', 'Food', 'Premium Wifi'],
-            distance: '100m'
-        }, {
-            name: 'Cafe Hero',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 4,
-            facilities: ['Hot Drinks', 'Food', 'Premium Wifi'],
-            distance: '200m'
-        },{
-            name: 'Cafe Paris',
-            address: '125 High Street, Reading, RG6 1PS',
-            rating: 2,
-            facilities: ['Food', 'Premium Wifi'],
-            distance: '250m'
-        }]
+        locations: responseBody
         });
 };
 
