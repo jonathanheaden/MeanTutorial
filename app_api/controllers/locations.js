@@ -158,14 +158,14 @@ module.exports.locationsDeleteOne = function (req, res) {
 module.exports.locationsListByDistance = function (req, res) {
     var lng = parseFloat(req.query.lng);
     var lat = parseFloat(req.query.lat);
-    var maxDist = req.query.maxDistance;
+    var maxdistance = parseFloat(req.query.maxdistance);
     var point = {
         type: "Point",
         coordinates : [lng,lat]
     };
     var geoOptions = {
     spherical : true,
-    maxDistance : theEarth.getRadsFromDistance(maxDist), 
+    maxDistance : theEarth.getRadsFromDistance(maxdistance), 
     num: 10
     };
     if (!lng || !lat) {
