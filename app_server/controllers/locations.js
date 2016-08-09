@@ -1,5 +1,12 @@
 var request = require('request');
 
+var apiOptions = {
+    server: "http://localhost:3000"
+};
+if (process.env.NODE_ENV === 'production') {
+    apiOptions.server = "https://herokuprodpath.herokuapp.com";
+}
+
 /* GET 'home' page */
 module.exports.homelist = function (req, res) {
     res.render('locations-list', {
