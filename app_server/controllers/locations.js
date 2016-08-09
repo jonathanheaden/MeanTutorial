@@ -9,9 +9,31 @@ if (process.env.NODE_ENV === 'production') {
 
 /* GET 'home' page */
 module.exports.homelist = function (req, res) {
+    var requestOptions, path;
+    path = 'api/locations';
+    requestOptions = {
+        url : apiOptions.server + path,
+        method : "GET",
+        json : {},
+        qs : {
+            lng : 3.9690884,
+            lat : -1.9690884,
+            MaxDistance : 20
+        }
+    };
+    request(
+        requestOptions,
+        function(err,response,body){
+            renderHomepage(req, res);
+        }
+    )
+    
+};
+
+var renderHomepage = function (req, res) {
     res.render('locations-list', {
-        title: 'Loc8tr - find a  place to work with wifi',
-        pageHeader: {
+            title: 'Loc8tr - find a place with wifi',
+            pageHeader: {
             title: 'Loc8tr',
             strapline: 'Find places to work with wifi near you!'
         },
@@ -35,7 +57,7 @@ module.exports.homelist = function (req, res) {
             facilities: ['Food', 'Premium Wifi'],
             distance: '250m'
         }]
-    });
+        });
 };
 
 /* GET 'Location Info' page */
