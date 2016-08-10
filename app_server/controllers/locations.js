@@ -73,6 +73,10 @@ var renderHomepage = function (req, res, responseBody) {
 
 /* GET 'Location Info' page */
 module.exports.locationInfo = function (req, res) {
+    renderDetailPage(req, res);
+}
+
+var renderDetailPage = function(req,res){
     res.render('location-info', {
         title: 'Starcups!',
         pageHeader: {
@@ -119,6 +123,8 @@ module.exports.locationInfo = function (req, res) {
         }  
     });
 };
+
+
 
 /* GET 'Add review' page */
 module.exports.addReview = function (req, res) {
