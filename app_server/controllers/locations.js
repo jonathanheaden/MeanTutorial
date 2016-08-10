@@ -73,8 +73,20 @@ var renderHomepage = function (req, res, responseBody) {
 
 /* GET 'Location Info' page */
 module.exports.locationInfo = function (req, res) {
-    renderDetailPage(req, res);
-}
+    var requestOptions, path;
+    path = "/api/locations/" + req.params.locationid;
+    requestOptions = {
+        url: apiOptions + path,
+        method: "Get",
+        json: {}
+    };
+    request (
+        requestOptions,
+        function(err, response, body) {
+            renderDetailPage(req, res);
+        }
+    );
+};
 
 var renderDetailPage = function(req,res){
     res.render('location-info', {
