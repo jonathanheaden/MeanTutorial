@@ -86,11 +86,15 @@ module.exports.locationInfo = function (req, res) {
             console.log('get the body')
             console.log(body)
             var data = body;
-            data.coords = {
-                lng: body.coords[0],
-                lat: body.coords[1]
-            };
-            renderDetailPage(req, res, data);
+            if (response.statusCode === 200) {
+                data.coords = {
+                    lng: body.coords[0],
+                    lat: body.coords[1]
+                };
+                renderDetailPage(req, res, data);
+            } else {
+                _showError(req, response.statusCode);
+            }
         }
     );
 };
@@ -109,7 +113,21 @@ var renderDetailPage = function(req,res, locDetail){
     });
 };
 
-
+var _showError = function(req,res,status){
+    var title, content;
+    if (status === 404) {
+        title  = "404, page not found";
+        content = "Looks like we can't find this page. Sorry!";
+    } else {
+        title = status + " something went wrong";
+        content = "something went wrong with the request";
+    }
+    res.status(status);
+    res.render('generic-text', {
+        title: title,
+        content: content
+    });
+};
 
 /* GET 'Add review' page */
 module.exports.addReview = function (req, res) {
