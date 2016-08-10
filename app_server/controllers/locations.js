@@ -131,6 +131,16 @@ var _showError = function(req,res,status){
 
 /* GET 'Add review' page */
 module.exports.addReview = function (req, res) {
-    res.render('location-review-form', {title: 'Add Review'});
+    renderReviewForm(req,res)
 };
 
+module.exports.doAddReview = function(req, res) {
+
+};
+
+var renderReviewForm = function (req,res) {
+    res.render('location-review-form', {
+        title: 'Review this location on Loc8tr',
+        pageHeader : {title: "review location"}
+    });
+};
