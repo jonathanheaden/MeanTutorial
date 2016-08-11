@@ -141,9 +141,31 @@ module.exports.addReview = function (req, res) {
 };
 
 module.exports.doAddReview = function(req, res) {
-    getLocationInfo(req,res, function(req,res,responseData){
-       renderReviewForm(req, res, responseData);
-    });
+    var requestOptions, path, locationid, postdata;
+    locationid = req.params.locationid;
+    path = '/api/locations/' + locationid +'/reviews';
+    console.log(path);
+    postdata = {
+        author: req.body.name,
+        rating: parseInt(req.body.rating, 10),
+        reviewText: req.body.review    
+    };
+    console.log(postdata);
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "POST",
+        json: postdata
+    };
+    request(
+        requestOptions,
+        function(err,response, body){
+            if(response.statusCode === 201) {
+                res.redirect('/location/' + locationid);
+            } else {
+                _showError(req,res, response.statusCode);
+            }
+        }
+    );
 };
 
 var renderReviewForm = function (req,res, locDetail) {
