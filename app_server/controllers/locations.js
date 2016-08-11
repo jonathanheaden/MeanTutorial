@@ -135,7 +135,9 @@ var _showError = function(req,res,status){
 
 /* GET 'Add review' page */
 module.exports.addReview = function (req, res) {
-    renderReviewForm(req,res)
+    getLocationInfo(req,res, function(req,res,responseData){
+        renderReviewForm(req, res, responseData);
+    });
 };
 
 module.exports.doAddReview = function(req, res) {
@@ -146,7 +148,7 @@ module.exports.doAddReview = function(req, res) {
 
 var renderReviewForm = function (req,res, locDetail) {
     res.render('location-review-form', {
-        title: 'Review ',// + locDetail.name + ' on Loc8tr',
-        pageHeader : {title: 'Review '}// + locDetail.name }
+        title: 'New Review ' + locDetail.name + ' on Loc8tr',
+        pageHeader : {title: 'Create a Review for ' + locDetail.name }
     });
 };
