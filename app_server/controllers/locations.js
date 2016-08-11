@@ -174,6 +174,6 @@ var renderReviewForm = function (req,res, locDetail) {
     res.render('location-review-form', {
         title: 'New Review ' + locDetail.name + ' on Loc8tr',
         pageHeader : {title: 'Create a Review for ' + locDetail.name },
-        erro: req.query.err
+        error: req.query.err
     });
 };
