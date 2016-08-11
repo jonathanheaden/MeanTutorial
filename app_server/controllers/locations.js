@@ -161,6 +161,8 @@ module.exports.doAddReview = function(req, res) {
         function(err,response, body){
             if(response.statusCode === 201) {
                 res.redirect('/location/' + locationid);
+            } else if (response.statusCode === 400 && body.name && body.name === 'ValidationError') {
+                res.redirect('/location/' + locationid + '/reviews/new?err=val');
             } else {
                 _showError(req,res, response.statusCode);
             }
@@ -171,6 +173,7 @@ module.exports.doAddReview = function(req, res) {
 var renderReviewForm = function (req,res, locDetail) {
     res.render('location-review-form', {
         title: 'New Review ' + locDetail.name + ' on Loc8tr',
-        pageHeader : {title: 'Create a Review for ' + locDetail.name }
+        pageHeader : {title: 'Create a Review for ' + locDetail.name },
+        erro: req.query.err
     });
 };
