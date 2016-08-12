@@ -4,7 +4,7 @@ $('#addReview').submit(function(e){
         if ($('.alert.alert-danger').length){
             $('.alert.alert-danger').show();
         } else {
-            $(this).prepend('<div role="alert alert-danger">All fields are required, please try again</div>');
+            $(this).prepend('<div role="alert alert-danger">All fields are required</div>');
         }
         return false
     }
