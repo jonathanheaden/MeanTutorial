@@ -22,10 +22,16 @@ var formatDistance = function(){
     };
 };
 
+var ratingStars = function(){
+    return {
+        template: " rating {{ location.rating }}"
+    };
+};
+
 var locationListCtrl = function($scope){
     $scope.data = {
         locations: [{              
-            "distance": 0,
+            "distance": 0.120,
             "name": "Sargon",
             "address": "Collins Street, Melbourne",
             "rating": 3,
@@ -54,5 +60,6 @@ var locationListCtrl = function($scope){
 angular 
     .module('loc8trApp')
     .controller('locationListCtrl', locationListCtrl)
-    .filter('formatDistance', formatDistance);
+    .filter('formatDistance', formatDistance)
+    .directive('ratingStars', ratingStars);
 
