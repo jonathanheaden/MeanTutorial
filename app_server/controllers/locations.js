@@ -9,32 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 
 /* GET 'home' page */
 module.exports.homelist = function (req, res) {
-    var requestOptions, path;
-    path = '/api/locations';
-    requestOptions = {
-        url : apiOptions.server + path,
-        method : "GET",
-        json : {},
-        qs : {
-            lng : 3.9690884,
-            lat : -1.9690884,
-            maxdistance : 20
-        }
-    };
-    request(
-        requestOptions,
-        function(err,response,body){
-            var i, data;
-            data = body;
-            if (response.statusCode === 200 && data.length) {
-                for (i = 0; i < data.length; i++) {
-                    data[i].distance = _formatDistance(data[i].distance);
-                }
-            }
-            renderHomepage(req, res, body);
-        }
-    )
-    
+    renderHomepage(req, res);
 };
 
 var _formatDistance = function (distance){
@@ -49,25 +24,14 @@ var _formatDistance = function (distance){
     return numDistance + unit;
 };
 
-var renderHomepage = function (req, res, responseBody) {
-    var message;
-    if (!(responseBody instanceof Array)){
-        message = "API lookup error";
-        responseBody = [];
-    } else {
-        if (!responseBody.length) {
-            message = "No nearby place found"
-        }
-    }
+var renderHomepage = function (req, res) {
     res.render('locations-list', {
             title: 'Loc8tr - find a place with wifi',
             pageHeader: {
             title: 'Loc8tr',
             strapline: 'Find places to work with wifi near you!'
         },
-        sidebar: "Looking for a suitable place to work with wifi? Perhaps with coffee and a cake? Loc8tr helps you work smarter when out and about",
-        locations: responseBody,
-        message: message
+        sidebar: "Looking for a suitable place to work with wifi? Perhaps with coffee and a cake? Loc8tr helps you work smarter when out and about"
         });
 };
 
