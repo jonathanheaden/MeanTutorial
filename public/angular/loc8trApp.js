@@ -32,25 +32,17 @@ var ratingStars = function(){
 };
 
 var locationListCtrl = function($scope, loc8trData){
-    $scope.data = {
-        locations: loc8trData
-    };
+    loc8trData
+       .success(function(data){
+          $scope.data = { locations: data };
+    })
+        .error(function (e){
+            console.log(e);
+        });
 };
 
-var loc8trData = function() {
-    return [{
-                   
-            "distance": 0.120,
-            "name": "Bean Blue",
-            "address": "Collins Street, Melbourne",
-            "rating": 3,
-            "facilities": [
-            "good coffee",
-            " power",
-            " wifi"
-            ],
-            "_id": "57a97e4c95355ad3537ca56e"
-    }];
+var loc8trData = function($http) {
+    return $http.get('api/locations?lng=3.9690884&lat=-1.9690884&maxdistance=20')
 }
 angular 
     .module('loc8trApp')
