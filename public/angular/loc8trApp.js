@@ -1,11 +1,32 @@
 angular.module('loc8trApp', []);
 
+var _isNumeric = function (n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+};
+
+var formatDistance = function(){
+    return function (distance){
+        var numDistance, unit;
+        if (distance && _isNumeric(distance)) {
+            if (distance > 1) {
+                numDistance = parseFloat(distance).toFixed(1);
+                unit = 'km'
+            } else {
+                numDistance = parseInt(distance * 1000,10);
+                unit = 'm'
+            }
+            return numDistance + unit;
+        } else {
+            return "?";
+        }
+    };
+};
 
 var locationListCtrl = function($scope){
     $scope.data = {
         locations: [{              
             "distance": 0,
-            "name": "Sargon 11",
+            "name": "Sargon",
             "address": "Collins Street, Melbourne",
             "rating": 3,
             "facilities": [
@@ -17,7 +38,7 @@ var locationListCtrl = function($scope){
         },
         {
             "distance": 0.0033799187040212883,
-            "name": "Great Space 22",
+            "name": "Great Space",
             "address": "Collins Street, Melbourne",
             "rating": 4,
             "facilities": [
@@ -32,5 +53,6 @@ var locationListCtrl = function($scope){
 
 angular 
     .module('loc8trApp')
-    .controller('locationListCtrl', locationListCtrl);
+    .controller('locationListCtrl', locationListCtrl)
+    .filter('formatDistance', formatDistance);
 
