@@ -13,16 +13,15 @@ block content
       .error {{ message }}
       .row.list-group
       
-        .col-xs-12.list-group-item(ng-repeat location in data.locations)         
+        .col-xs-12.list-group-item(ng-repeat="location in data.locations")         
           h4
             a(href="/location/{{ location._id }}") {{ location.name }}
-            small &nbsp;
-              +outputRating({{ location.rating }})
+            small {{ location.rating }}
             span.badge.pull-right.badge-default {{ location.distance }}
           p.address {{ location.address }}
           p
-            each facility in location.facilities
-              span.label.label-warning= facility
-              &nbsp;
+            span.label.label-warning.label-facility(ng-repeat="facility in location.facilities")
+              | {{ facility }} &nbsp
+             
     .col-xs-12.col-sm-4
       p.lead= sidebar
