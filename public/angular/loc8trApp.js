@@ -32,11 +32,14 @@ var ratingStars = function(){
 };
 
 var locationListCtrl = function($scope, loc8trData){
+    $scope.message = "Searching for nearby places"
     loc8trData
        .success(function(data){
-          $scope.data = { locations: data };
+           $scope.message = data.length > 0 ? "" : "No nearby places found"
+           $scope.data = { locations: data };
     })
         .error(function (e){
+            $scope.message = "something went wrong";
             console.log(e);
         });
 };
@@ -44,6 +47,7 @@ var locationListCtrl = function($scope, loc8trData){
 var loc8trData = function($http) {
     return $http.get('api/locations?lng=3.9690884&lat=-1.9690884&maxdistance=20')
 }
+
 angular 
     .module('loc8trApp')
     .controller('locationListCtrl', locationListCtrl)
