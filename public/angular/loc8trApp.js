@@ -33,9 +33,11 @@ var ratingStars = function(){
 
 var locationListCtrl = function($scope, loc8trData, geoLocation){
     $scope.message = "checking your location for nearby places"
-    $scope.getData = function(){
+    $scope.getData = function(position){
+        var lat = position.coords.latitude,
+            lng = position.coords.longitude;
         $scope.message = "Searching for nearby places";
-        loc8trData
+        loc8trData.locationByCoords(lat,lng)
         .success(function(data){
             $scope.message = data.length > 0 ? "" : "No nearby places found"
             $scope.data = { locations: data };
