@@ -35,8 +35,10 @@ var locationListCtrl = function($scope, loc8trData, geolocation){
     $scope.message = "Checking your location";
     
     $scope.getData = function (position) {
+        var lat = position.coords.latitude,
+            lng = position.coords.longitude;
         $scope.message = "Searching for nearby places";
-        loc8trData
+        loc8trData.locationByCoords(lat,lng)
         .success(function(data){
             $scope.message = data.length > 0 ? "" : "No nearby places found"
             $scope.data = { locations: data };
@@ -48,9 +50,25 @@ var locationListCtrl = function($scope, loc8trData, geolocation){
     };
 
     $scope.showError = function(error){
-        $scope.$apply(function(){
-            $scope.message = error.message;
-        });
+       // proper error handling code needs to re commented to fake the location for non-connected development
+       // $scope.$apply(function(){
+       //     $scope.message = error.message;
+       // });
+       $scope.$apply(function(){
+               $scope.message = "using the hardcoded coordinates"
+                var lng1 = 3.969085,
+                    lat1 = -1.9690887;
+                loc8trData.locationByCoords(lat,lng)
+                .success(function(data){
+                    $scope.message = data.length > 0 ? "" : "No nearby places found"
+                    $scope.data = { locations: data };
+                })
+                    .error(function (e){
+                        $scope.message = "something went wrong";
+                        console.log(e);
+                    });
+            });
+   
     };
 
     $scope.noGeo = function(){
@@ -75,7 +93,7 @@ var geolocation = function() {
     var getPosition = function(cbSuccess, cbError, cbNoGeo) {
         if (navigator.geolocation){
             navigator.geolocation.getCurrentPosition(cbSuccess, cbError);
-        } else {
+        }  else {
             cbNoGeo();
         }
     };
