@@ -56,8 +56,8 @@ var locationListCtrl = function($scope, loc8trData, geolocation){
        // });
        $scope.$apply(function(){
                $scope.message = "using the hardcoded coordinates"
-                var lng1 = 3.969085,
-                    lat1 = -1.9690887;
+                var lng = 3.969085,
+                    lat = -1.9690887;
                 loc8trData.locationByCoords(lat,lng)
                 .success(function(data){
                     $scope.message = data.length > 0 ? "" : "No nearby places found"
