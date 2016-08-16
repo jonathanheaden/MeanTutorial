@@ -31,9 +31,11 @@ var ratingStars = function(){
     };
 };
 
-var locationListCtrl = function($scope, loc8trData, geoLocation){
-    $scope.message = "checking your location for nearby places"
-    $scope.getData = function(position){
+
+var locationListCtrl = function($scope, loc8trData, geolocation){
+    $scope.message = "Checking your location";
+    
+    $scope.getData = function (position) {
         var lat = position.coords.latitude,
             lng = position.coords.longitude;
         $scope.message = "Searching for nearby places";
@@ -46,39 +48,58 @@ var locationListCtrl = function($scope, loc8trData, geoLocation){
                 $scope.message = "something went wrong";
                 console.log(e);
             });
-        };
-    $scope.showError = function(error){
-        $scope.$apply(function(){
-            $scope.message = error.message;
-        });
+
     };
+
+    $scope.showError = function(error){
+       // proper error handling code needs to re commented to fake the location for non-connected development
+       // $scope.$apply(function(){
+       //     $scope.message = error.message;
+       // });
+       $scope.$apply(function(){
+               $scope.message = "using the hardcoded coordinates"
+                var lng = 3.969085,
+                    lat = -1.9690887;
+                loc8trData.locationByCoords(lat,lng)
+                .success(function(data){
+                    $scope.message = data.length > 0 ? "" : "No nearby places found"
+                    $scope.data = { locations: data };
+                })
+                    .error(function (e){
+                        $scope.message = "something went wrong";
+                        console.log(e);
+                    });
+            });
+   
+    };
+
     $scope.noGeo = function(){
         $scope.$apply(function(){
-            $scope.message = "GeoLocation not supported by this browser";
+            $scope.message = "GeoLocation not available";
         });
     };
 
-    geoLocation.getPosition($scope.getData,$scope.showError,$scope.noGeo);
+    geolocation.getPosition($scope.getData, $scope.showError, $scope.noGeo);
 };
 
 var loc8trData = function($http) {
     var locationByCoords = function(lat, lng) {
-        return $http.get('api/locations?lng=' + lng + '&lat=' + lat + '&maxdistance=20');
-        //return $http.get('api/locations?lng=3.9690884&lat=-1.9690884&maxdistance=20');
-    }
-    // return $http.get('api/locations?lng=3.9690884&lat=-1.9690884&maxdistance=20')
+
+        return $http.get('api/locations?lng=' + lng +'&lat='+lat +'&maxdistance=20')
+    };
     return {
         locationByCoords : locationByCoords
     };
 };
 
-var geolocation = function () {
-    var getPosition = function(cbSucesss, cbError, cbNoGeo) {
-        if (navigator.geolocation) {
-            navigator.getCurrentPosition(cbSucesss,cbError);
-        } else {
+
+var geolocation = function() {
+    var getPosition = function(cbSuccess, cbError, cbNoGeo) {
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(cbSuccess, cbError);
+        }  else {
             cbNoGeo();
-        }   
+        }
     };
     return {
         getPosition : getPosition
@@ -91,5 +112,5 @@ angular
     .filter('formatDistance', formatDistance)
     .directive('ratingStars', ratingStars)
     .service('loc8trData', loc8trData)
-    .service('geoLocation', geolocation);
+    .service('geolocation', geolocation);
 
