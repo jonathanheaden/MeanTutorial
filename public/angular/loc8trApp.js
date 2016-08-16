@@ -63,8 +63,13 @@ var locationListCtrl = function($scope, loc8trData, geolocation){
 };
 
 var loc8trData = function($http) {
-    return $http.get('api/locations?lng=3.9690884&lat=-1.9690884&maxdistance=20')
-}
+    var locationByCoords = function(lat, lng) {
+        return $http.get('api/locations?lng=' + lng +'&lat='+lat +'&maxdistance=20')
+    };
+    return {
+        locationByCoords : locationByCoords
+    };
+};
 
 var geolocation = function() {
     var getPosition = function(cbSuccess, cbError, cbNoGeo) {
