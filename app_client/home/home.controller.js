@@ -2,7 +2,7 @@ angular
   .module('loc8trApp')
   .controller('homeCtrl', homeCtrl);
 
-function homeCtrl($sope, loc8trData, geolocation) {
+function homeCtrl($scope, loc8trData, geolocation) {
     var vm = this;
     vm.pageHeader = {
         title: 'Loc8tr',
