@@ -3,7 +3,8 @@ angular.module('loc8trApp', ['ngRoute']);
 function config($routeProvider){
     $routeProvider
        .when('/', {
-           templateUrl: 'home/home.view.html'
+           templateUrl: 'home/home.view.html',
+           controller: 'homeCtrl'
        })
        .otherwise({redirectTo: '/'});
 }
