@@ -5,7 +5,7 @@ function config($routeProvider){
        .when('/', {
            templateUrl: 'home/home.view.html',
            controller: 'homeCtrl',
-           controlerAs: 'vm'
+           controllerAs: 'vm'
        })
        .otherwise({redirectTo: '/'});
 }
