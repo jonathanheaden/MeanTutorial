@@ -1,6 +1,4 @@
 (function() {
-
-
     angular.module('loc8trApp', ['ngRoute']);
 
     function config($routeProvider){
