@@ -1,7 +1,7 @@
 (function() {    
     angular
-    .module('loc8trApp')
-    .directive('ratingStars', ratingStars);
+      .module('loc8trApp')
+      .directive('ratingStars', ratingStars);
 
     function ratingStars (){
         return{

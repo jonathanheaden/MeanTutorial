@@ -1,8 +1,9 @@
 (function() {
     angular
-    .module('loc8trApp')
-    .controller('homeCtrl', homeCtrl);
-
+      .module('loc8trApp')
+      .controller('homeCtrl', homeCtrl);
+    
+    homeCtrl.$inject = ['$scope','loc8trData','geolocation'];
     function homeCtrl($scope, loc8trData, geolocation) {
         var vm = this;
         vm.pageHeader = {
