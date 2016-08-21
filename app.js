@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 require('./app_api/models/db');
 var uglifyJs = require('uglify-js');
 var fs = require('fs');
-var routes = require('./app_server/routes/index');
+// var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 var users = require('./app_server/routes/users');
 
@@ -42,7 +42,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_client')));
 
-app.use('/', routes);
+//app.use('/', routes);
+app.use(function(req,res) {
+  res.sendfile(path.join(___dirname, 'app_client', 'index.html'));
+});
 app.use('/api', routesApi);
 app.use('/users', users);
 
