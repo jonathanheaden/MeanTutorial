@@ -11,7 +11,7 @@
             strapline: 'Find places to work with wifi'
         };
         vm.sidebar = {
-            content: "Looking for wifi and a seat etc etc"
+            content: "Looking for wifi and a seat?"
         };
 
         vm.message = "Checking your location";
