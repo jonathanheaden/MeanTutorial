@@ -8,10 +8,10 @@
             controller: 'homeCtrl',
             controllerAs: 'vm'
         })
-        .when('/about',{
-            templateUrl:'common/views/genericText.view.html',
+        .when('/about', {
+            templateUrl: '/common/views/genericText.view.html',
             controller: 'aboutCtrl',
-            cntrollerAs: 'vm'
+            controllerAs: 'vm'
         })
         .otherwise({redirectTo: '/'});
 
