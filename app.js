@@ -18,6 +18,7 @@ app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
 var appClientFiles = [
   'app_client/app.js', 
+  'app_client/about/about.controller.js',
   'app_client/home/home.controller.js', 
   'app_client/common/services/loc8trData.service.js',
   'app_client/common/services/geolocation.service.js',
