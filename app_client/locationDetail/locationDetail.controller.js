@@ -4,11 +4,13 @@
       .module('loc8trApp')
       .controller('locationDetailCtrl', locationDetailCtrl);
 
-    function locationDetailCtrl(){
+    locationDetailCtrl.$inject = ['$routeParams'];
+    function locationDetailCtrl($routeParams){
         var vm = this;
 
+        vm.locationid = $routeParams.locationid;
         vm.pageHeader = {
-            title: 'Location Detail Page'
+            title: vm.location
         };
     }
 })();
