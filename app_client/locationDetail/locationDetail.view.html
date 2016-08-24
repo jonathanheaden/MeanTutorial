@@ -14,7 +14,11 @@
                             <h2 class="panel-title">Opening Hours</h2>
                         </div>
                         <div class="panel-body">
-                            <!-- Opening times go here -->
+                            <p ng-repeat="hours in vm.data.location.openingTimes" ng-switch on="hours.closed">
+                                {{hours.days}} :
+                                <span class="opening-time" ng-switch-when="true">closed</span>
+                                <span class="opening-time" ng-switch-default>{{hours.opening + ' - ' + hours.closing}}</span>
+                            </p>
                         </div>
                     </div>
                     <div class = "panel panel-primary">
