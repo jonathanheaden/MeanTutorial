@@ -3,8 +3,8 @@
       .module('loc8trApp')
       .controller('reviewModalCtrl',reviewModalCtrl);
 
-    reviewModalCtrl.$inject = ['$modalInstance', 'locationData'];
-    function reviewModalCtrl ($modalInstance, locationData){
+    reviewModalCtrl.$inject = ['$modalInstance','loc8trData','locationData'];
+    function reviewModalCtrl ($modalInstance, loc8trData, locationData){
         var vm = this;
         vm.locationData = locationData;
         
@@ -19,9 +19,22 @@
                 vm.formError = "All fields required! please try again";
                 return false;
             } else {
-                console.log(vm.formData);
-                return false;
+                vm.doAddReview(vm.locationData.locationid, vm.formData);
             }
+        };
+        vm.doAddReview = function(locationid,formData){
+            loc8trData.addReviewById(locationid, {
+                author: formData.name,
+                rating: formData.rating,
+                reviewText: formData.reviewText
+            })
+            .success(function (data) {
+                console.log("successfully wrote review");
+            })
+            .error(function(data) {
+                vm.formError = "Your review was not saved! Please try again";
+            });
+            return false
         };
     }
 })();
