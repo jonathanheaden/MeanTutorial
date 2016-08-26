@@ -9,6 +9,9 @@
         vm.locationData = locationData;
         
         vm.modal = {
+            close : function(result){
+                $modalInstance.close(result);
+            },
             cancel : function() {
                 $modalInstance.dismiss('cancel');
             }
@@ -29,7 +32,7 @@
                 reviewText: formData.reviewText
             })
             .success(function (data) {
-                console.log("successfully wrote review");
+                vm.modal.close(data);
             })
             .error(function(data) {
                 vm.formError = "Your review was not saved! Please try again";
