@@ -26,7 +26,7 @@
                 resolve: {
                     locationData : function() {
                         return {
-                            locationid: vm.location.id,
+                            locationid: vm.locationid,
                             locationName : vm.data.location.name
                         };
                     }
