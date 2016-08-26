@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form id="addReview" name="addRevie" role="form" class="form-horizontal">
+    <form id="addReview" name="addReview" role="form" ng-submit="vm.onSubmit()" class="form-horizontal">
         <div class="modal-header">
             <button type="button" ng-click="vm.modal.cancel()" class="close">
                 <span aria-hidden="true">X</span>
@@ -35,6 +35,7 @@
         </div>
         <div class="modal-footer">
             <button ng-click="vm.modal.cancel()" type="button" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
         </div>
     </form>
 </div>
