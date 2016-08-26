@@ -14,8 +14,14 @@
             }
         };
         vm.onSubmit = function () {
-            console.log(vm.formData);
-            return false;
+            vm.formError="";
+            if(!vm.formData.name || !vm.formData.rating || !vm.formData.reviewText) {
+                vm.formError = "All fields required! please try again";
+                return false;
+            } else {
+                console.log(vm.formData);
+                return false;
+            }
         };
     }
 })();
