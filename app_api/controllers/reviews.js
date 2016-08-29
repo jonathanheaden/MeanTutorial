@@ -49,16 +49,7 @@ module.exports.reviewsReadOne = function (req, res) {
                 if (location.reviews && location.reviews.length > 0) {
                     console.log("Review Id : " + req.params.reviewid); 
                     review = location.reviews.id(req.params.reviewid);
-                    //review = location.reviews.id('57a831815bf76f041ffbc782');
-                    /* 
-                    Getting error in Node
-                    POST /api/locations/57a10828ae5fb5b9ec358c86/reviews 200 7.933 ms - 20
-/Users/jonathan/Documents/20-29 Personal Projects/26 Coding/26.14 loc8tr/loc8tr/app_api/controllers/reviews.js:30
-                    review = location.reviews.id(req.params.reviewid);
-                                              ^
-
-TypeError: location.reviews.id is not a function
-                    */
+                 
                     if (!review) {
                         sendJsonResponse(res,404,{
                             "message": "reviewid not found"
