@@ -11,6 +11,26 @@
         var getToken = function () {
             return $window.localStorage['loc8tr-token'];
         };
+        var isLoggedIn = function(){
+            var token = getToken;
+            if (token){
+                var payload = JSON.parse($window.atob(token.split('.')[1]));
+                return payload. exp > Date.now() / 1000;
+            } else {
+                return false;
+            }
+        }
+        var currentUser = function(){
+            if (isLoggedIn()){
+                var token = getToken;
+                var payload = JSON.parse($window.atob(token.split('.')[1]));
+                return {
+                    email : payload.email,
+                    name : payload.name
+                };
+            }
+        };
+
         register = function(user) {
             return $http.post('/api/register',user).success(function(data){
                 saveToken(data.token);
@@ -28,6 +48,8 @@
         return {
             saveToken : saveToken,
             getToken : getToken,
+            isLoggedIn : isLoggedIn,
+            currentUser : currentUser,
             register : register,
             login : login,
             logout : logout
