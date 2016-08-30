@@ -34,10 +34,10 @@
               .error(function(err){
                   vm.formError = err;
               })
-              .then(function){
+              .then(function(){
                   $location.search('page', null);
                   $location.path(vm.returnPage);
-              };
+              });
         };
     }
 })();
