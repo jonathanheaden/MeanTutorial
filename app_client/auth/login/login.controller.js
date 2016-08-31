@@ -41,7 +41,12 @@
     }
 })();
 
+// need to understand the difference between register and login --> the placement of the brackets is different
 
+/*
+register=function(e){
+    return t.post("/api/register",e).success(function(e){o(e.token)})};
 
-//register=function(e){return t.post("/api/register",e).success(function(e){o(e.token)})};
-//login=function(e){return t.post("/api/login",e.success(function(e){o(e.token)}))};
+login=function(e){
+    return t.post("/api/login",e.success(function(e){o(e.token)}))};
+*/
