@@ -6,7 +6,6 @@
     loginCtrl.$inject = ['$location','authentication'];
     function loginCtrl($location,authentication) {
         var vm = this;
-
         vm.pageHeader = {
             title : 'Login with your Loc8tr account'
         };
@@ -17,16 +16,17 @@
         vm.returnPage = $location.search().page || '/';
 
         vm.onSubmit = function() {
+            console.log('hello ' + vm.credentials.email);
             vm.formError = "";
             if (!vm.credentials.email || !vm.credentials.password) {
                 vm.formError = "All fields requires, please try again";
                 return false;
             } else {
-                vm.dologin();
+                vm.doLogin();
             }
         };
 
-        vm.dologin = function(){
+        vm.doLogin = function(){
             vm.formError = "";
             authentication
               .login(vm.credentials)
@@ -40,3 +40,8 @@
         };
     }
 })();
+
+
+
+//register=function(e){return t.post("/api/register",e).success(function(e){o(e.token)})};
+//login=function(e){return t.post("/api/login",e.success(function(e){o(e.token)}))};
