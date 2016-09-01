@@ -12,7 +12,7 @@
             return $window.localStorage['loc8tr-token'];
         };
         var isLoggedIn = function(){
-            var token = getToken;
+            var token = getToken();
             if (token){
                 var payload = JSON.parse($window.atob(token.split('.')[1]));
                 return payload. exp > Date.now() / 1000;
@@ -22,7 +22,7 @@
         }
         var currentUser = function(){
             if (isLoggedIn()){
-                var token = getToken;
+                var token = getToken();
                 var payload = JSON.parse($window.atob(token.split('.')[1]));
                 return {
                     email : payload.email,
