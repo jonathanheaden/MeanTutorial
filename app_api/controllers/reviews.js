@@ -131,7 +131,7 @@ module.exports.reviewsUpdateOne = function (req, res) {
 module.exports.reviewsDeleteOne = function (req, res) { 
     if (!req.params.locationid || !req.params.reviewid) {
         sendJsonResponse(res,404, {
-            "message" : "Not found, locationif and reviewid are both required"
+            "message" : "Not found, locationid and reviewid are both required"
         });
         return;
     }
@@ -149,7 +149,7 @@ module.exports.reviewsDeleteOne = function (req, res) {
                     sendJsonResponse(res,400,err);
                     return;
                 }
-                if (location.reviews && location.reviews.lenth > 0) {
+                if (location.reviews && location.reviews.length > 0) {
                     if (!location.reviews.id(req.params.reviewid)) {
                         sendJsonResponse(res,404, {
                             "message":"reviewid not found"
