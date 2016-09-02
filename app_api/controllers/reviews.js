@@ -178,6 +178,7 @@ module.exports.reviewsDeleteOne = function (req, res) {
 
 var getAuthor = function(req,res, callback) {
     if (req.payload && req.payload.email) {
+        console.log('get author name');       
         User 
           .findOne({email: req.payload.email})
           .exec(function(err,user){
@@ -190,7 +191,8 @@ var getAuthor = function(req,res, callback) {
                   console.log(err);
                   sendJsonResponse(res, 404, err);
               }
-              callback(req, res. user.name);
+              console.log(user.name);
+              callback(req, res, user.name);
           });
     } else {
         sendJsonResponse(res, 404, {
@@ -206,11 +208,15 @@ var doAddReview = function(req, res, location, author){
             "message": "locationid not found"
         });
     } else {
+        console.log('adding review by ' + author);
+        console.log(req.body.rating);
+        console.log(req.body.reviewText);
         location.reviews.push({
             author: author,
             rating: req.body.rating,
             reviewText:req.body.reviewText
         });
+        console.log('finished addreview');
         location.save(function(err, location){
             var thisReview;
             if (err) {

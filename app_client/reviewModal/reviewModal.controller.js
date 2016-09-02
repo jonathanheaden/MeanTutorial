@@ -17,6 +17,7 @@
             }
         };
         vm.onSubmit = function () {
+            console.log(vm.formData)
             vm.formError="";
             if(!vm.formData.rating || !vm.formData.reviewText) {
                 vm.formError = "All fields required! please try again";
@@ -34,6 +35,7 @@
                 vm.modal.close(data);
             })
             .error(function(data) {
+                console.log(data)
                 vm.formError = "Your review was not saved! Please try again";
             });
             return false
